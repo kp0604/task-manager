@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import TaskC from "./TaskC";
 import { Container, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import empty from "./empty.png";
 
 const Completed = () => {
   const TaskCom = useSelector((state) => state.Completed);
@@ -24,16 +25,29 @@ const Completed = () => {
       </div>
       <div className="taskW px-3">
         <Row className="overflow-auto h-100 " id="x">
-          {taskC.map((task, idx) => (
-            <Col lg={6} className="my-2">
-              <TaskC
-                title={task.title}
-                date={task.date}
-                desc={task.desc}
-                idx={idx}
-              />
-            </Col>
-          ))}
+          {taskC.length !== 0 ? (
+            taskC.map((task, idx) => (
+              <Col lg={6} className="my-2">
+                <TaskC
+                  title={task.title}
+                  date={task.date}
+                  desc={task.desc}
+                  idx={idx}
+                />
+              </Col>
+            ))
+          ) : (
+            <div className="d-flex flex-column  align-items-center">
+              <h4>Empty List...</h4>
+              <img
+                alt="img.png"
+                src={empty}
+                height="300px"
+                width="300px"
+                className="my-4"
+              ></img>
+            </div>
+          )}
         </Row>
       </div>
     </Container>
