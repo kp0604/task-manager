@@ -9,8 +9,6 @@ import {
 } from "react-bootstrap";
 
 import { useDispatch } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { edit } from "../Redux/tasksSlice";
 
 const Subt = ({ taskObj }) => {
@@ -27,9 +25,9 @@ const Subt = ({ taskObj }) => {
                     aria-label="Checkbox for following text input"
                     checked={st.isDone}
                     onClick={() => {
-                      let newSub = taskObj.subt.filter((sub,id)=>id!==idx)
-                      newSub.push({...st,isDone:!st.isDone})
-                      dispatch(edit({...taskObj,subt:newSub}));
+                      let newSub = taskObj.subt.filter((sub, id) => id !== idx);
+                      newSub.push({ ...st, isDone: !st.isDone });
+                      dispatch(edit({ ...taskObj, subt: newSub }));
                     }}
                   />
                   <p className=" text-center m-auto">{st.title}</p>
@@ -63,7 +61,7 @@ const Subt = ({ taskObj }) => {
             aria-describedby="basic-addon2"
           />
           <Button variant="primary" id="button-addon2" type="submit">
-            <FontAwesomeIcon icon={faPlus} className="mx-2" />
+            <i class="bi bi-plus-lg fs-5"></i>
           </Button>
         </InputGroup>
       </Form>

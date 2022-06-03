@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Container, Navbar, Button, Modal } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faBarsProgress } from "@fortawesome/free-solid-svg-icons";
 import TaskForm from "./TaskForm";
 
 const Nabar = () => {
@@ -14,23 +12,21 @@ const Nabar = () => {
     <Navbar
       sticky="top"
       variant="dark"
-      style={{ 
-        
-        backgroundColor: "teal" ,
-        // backgroundImage:  
-        // `linear-gradient(to right, #00b09b, #96c93d)`
-    
-    
-    }}
+      style={{
+        backgroundColor: "teal",
+      }}
     >
       <Container>
         <Navbar.Brand>
-          <FontAwesomeIcon icon={faBarsProgress} className="me-2" />
-          TaskBoard
+          <i class="bi bi-kanban-fill"></i> TaskBoard
         </Navbar.Brand>
-        <Button variant="light" onClick={handleShow} size="sm">
-          <FontAwesomeIcon icon={faAdd} className="me-2" />
-          Create
+        <Button
+          variant="light"
+          onClick={handleShow}
+          size="sm"
+          className="text-dark"
+        >
+          <i class="bi bi-plus-square-fill fs-5"></i> Create
         </Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

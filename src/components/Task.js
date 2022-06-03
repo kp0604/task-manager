@@ -1,8 +1,6 @@
 import { React, useState } from "react";
 import { Card, Button, Modal, Dropdown } from "react-bootstrap";
 import Subt from "./Subt";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { edit, del } from "../Redux/tasksSlice";
 
@@ -31,7 +29,7 @@ const Task = ({ taskObj }) => {
           size="sm"
           onClick={() => dispatch(del({ uid: taskObj.uid }))}
         >
-          <FontAwesomeIcon icon={faTrashCan} className="" />
+          <i class="bi bi-trash"></i>
         </Button>
       </Card.Header>
       <Modal show={show} onHide={handleClose}>
