@@ -46,7 +46,9 @@
     ]
   },
   "devDependencies": {
+    "mkdirp": "^1.0.4",
     "redux-devtools": "^3.7.0",
+    "rimraf": "^3.0.2",
     "sass": "^1.52.1"
   }
 }
