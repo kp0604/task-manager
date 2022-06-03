@@ -1,23 +1,27 @@
-import { React, useState,useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { add } from "../Redux/actions";
-
-const TaskForm = () => {
+import { add } from "../Redux/tasksSlice";
+const TaskForm = ({ close }) => {
   let date = new Date();
-
-  let createdAt = `${date.getDate()}-${date.getMonth()}-${date.getYear()} | ${date.getHours()} : ${date.getMinutes()}`;
+  let createdAt = date.toUTCString();
   const dispatch = useDispatch();
 
   const [task, settask] = useState("");
   const [title, settitle] = useState("");
   const [desc, setdesc] = useState("");
-  
+
   useEffect(() => {
-    let taskObj = { title: title, desc: desc, date: createdAt, subt: [], isCompleted: false, subAdd: false };
+    let taskObj = {
+      uid: Math.random().toString(36).slice(2),
+      title: title,
+      description: desc,
+      createdAt: createdAt,
+      subt: [],
+      status: "OPEN",
+    };
     settask(taskObj);
-    
-  }, [title,desc])
+  }, [title, desc]);
 
   const handleReset = () => {
     settitle("");
@@ -30,16 +34,11 @@ const TaskForm = () => {
       onSubmit={(e) => {
         e.preventDefault();
         if (!(title === "")) {
-        console.log("inform");
-       
-
-        console.log(task);
           dispatch(add(task));
-          console.log("formdisp");
           handleReset();
-        }
-        else {
-          alert("Enter Task...")
+          close();
+        } else {
+          alert("Enter Task...");
         }
       }}
       onReset={() => {
@@ -52,8 +51,7 @@ const TaskForm = () => {
         className="mb-3"
         controlId="exampleForm.ControlInput1"
         onChange={(e) => {
-          settitle(e.target.value.toUpperCase());
-          
+          settitle(e.target.value);
         }}
       >
         <Form.Label className="fs-5">Title :</Form.Label>
@@ -64,7 +62,6 @@ const TaskForm = () => {
         controlId="Description..."
         onChange={(e) => {
           setdesc(e.target.value);
-         
         }}
       >
         <Form.Label className="fs-5">Description :</Form.Label>

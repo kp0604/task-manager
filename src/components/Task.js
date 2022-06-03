@@ -1,36 +1,87 @@
-import { React } from "react";
-import { Card,Button } from "react-bootstrap";
+import { React, useState } from "react";
+import { Card, Button, Modal, Dropdown } from "react-bootstrap";
 import Subt from "./Subt";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { edit, del } from "../Redux/tasksSlice";
 
-const Task = (props) => {
+const Task = ({ taskObj }) => {
+  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleClick = (e, uid, status) => {
+    e.preventDefault();
+    dispatch(edit({ ...taskObj, uid, status }));
+  };
   return (
-    <Card bg="warning" text="dark" className="p-0" key={props.idx}>
-      <Card.Header className="p-2 d-flex justify-content-between align-items-center">
-        <Card.Title className="fs-5 m-0">{props.title}</Card.Title>
-        <Button variant="danger">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-trash-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-          </svg>
+    <Card text="dark" className="p-0" key={taskObj.id}>
+      <Card.Header className="p-2 d-flex justify-content-between bg-white">
+        <Card.Title
+          className="fs-6 m-0 text-capitalize w-100 my-auto"
+          style={{ cursor: "pointer" }}
+          onClick={handleShow}
+        >
+          {taskObj.title}
+        </Card.Title>
+        <Button
+          className="bg-danger border-white"
+          size="sm"
+          onClick={() => dispatch(del({ uid: taskObj.uid }))}
+        >
+          <FontAwesomeIcon icon={faTrashCan} className="" />
         </Button>
       </Card.Header>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton className="px-3 py-2 fs-6">
+          <Modal.Title className="text-capitalize">{taskObj.title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="d-flex justify-content-between">
+            <p className="my-1 fs-6">
+              <span className="fw-bold">Created at : </span>
+              <span className="">{taskObj.createdAt}</span>
+            </p>
+            <Dropdown align="end">
+              <Dropdown.Toggle size="sm" variant="primary" id="dropdown-basic">
+                Status
+              </Dropdown.Toggle>
 
-      <Card.Body className="p-2">
-        <Card.Text className="fs-6 ">
-          <h6 className="my-1 ">Created at : {props.date}</h6>
-          {props.desc}
-        </Card.Text>
-      </Card.Body>
-
-      <Card.Footer className="p-0">
-        <Subt id={props.idx} />
-      </Card.Footer>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  as="button"
+                  onClick={(e) => handleClick(e, taskObj.uid, "INPROGRESS")}
+                  className="mt-1"
+                >
+                  Inprogress
+                </Dropdown.Item>
+                <Dropdown.Item
+                  as="button"
+                  onClick={(e) => handleClick(e, taskObj.uid, "COMPLETE")}
+                  className="mt-1"
+                >
+                  Complete
+                </Dropdown.Item>
+                <Dropdown.Item
+                  as="button"
+                  onClick={(e) => handleClick(e, taskObj.uid, "ARCHIVE")}
+                  className="mt-1"
+                >
+                  Archive
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>{" "}
+          </div>
+          <p className="mt-2 fw-bold">Description</p>
+          <p className="border border-dark p-2 mx-1 text-capitalize">
+            {taskObj.description}
+          </p>
+          <p className="mt-5 fw-bold">Subtasks</p>
+          <Subt taskObj={taskObj} />
+        </Modal.Body>
+      </Modal>
     </Card>
   );
 };

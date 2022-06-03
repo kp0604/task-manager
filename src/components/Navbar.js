@@ -1,32 +1,45 @@
-import React from "react";
-import { Container, Navbar, DropdownButton, Dropdown } from "react-bootstrap";
-import {Link} from 'react-router-dom'
+import React, { useState } from "react";
+import { Container, Navbar, Button, Modal } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAdd, faBarsProgress } from "@fortawesome/free-solid-svg-icons";
+import TaskForm from "./TaskForm";
 
 const Nabar = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
-    <Navbar bg="dark" variant="dark" sticky="top">
+    <Navbar
+      sticky="top"
+      variant="dark"
+      style={{ 
+        
+        backgroundColor: "teal" ,
+        // backgroundImage:  
+        // `linear-gradient(to right, #00b09b, #96c93d)`
+    
+    
+    }}
+    >
       <Container>
-        <Navbar.Brand>Task-Manager</Navbar.Brand>
-        <DropdownButton id="dropdown-basic-button" title="Task-Lists " variant="primary">
-            <Dropdown.Item>
-          <Link to="/">
-              New Task
-          </Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
-          <Link to="/inprogress">
-              Inprogress
-          </Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
-          <Link to="/completed">
-              Completed
-          </Link>
-            </Dropdown.Item>
-          <Dropdown.Item>
-            <Link to="/archived">Archived</Link>
-          </Dropdown.Item>
-        </DropdownButton>
+        <Navbar.Brand>
+          <FontAwesomeIcon icon={faBarsProgress} className="me-2" />
+          TaskBoard
+        </Navbar.Brand>
+        <Button variant="light" onClick={handleShow} size="sm">
+          <FontAwesomeIcon icon={faAdd} className="me-2" />
+          Create
+        </Button>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <TaskForm close={handleClose}></TaskForm>
+          </Modal.Body>
+        </Modal>
       </Container>
     </Navbar>
   );
