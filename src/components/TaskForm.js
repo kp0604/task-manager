@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import React,{useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { add } from "../Redux/tasksSlice";

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React,{useState } from "react";
 import { Card, Button, Modal, Dropdown } from "react-bootstrap";
 import Subt from "./Subt";
 import { useDispatch } from "react-redux";
