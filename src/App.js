@@ -1,15 +1,16 @@
 import React from 'react'
-import Nabar from "./components/Navbar";
+import Header from "./components/Header";
 import Home from "./components/Home";
+import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
 
   return (
     <div className="App">
-      <Nabar />
+      <Header />
       <Home />
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 }

@@ -4,9 +4,9 @@ import { Container, Row, Col } from "react-bootstrap";
 
 export default function Home() {
   return (
-    <Container fluid className="h-75">
-      <Row>
-        <Col md={12} lg={3}>
+    <Container fluid className="flex-grow-1 h-100 bg-light" >
+      <Row className="h-100">
+        <Col md={12} lg={3} className="h-100">
           <TaskList listName={"open tasks"} status={"OPEN"}/>
         </Col>
         <Col md={12} lg={3}>

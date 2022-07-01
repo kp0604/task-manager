@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Navbar, Button, Modal } from "react-bootstrap";
 import TaskForm from "./TaskForm";
 
-const Nabar = () => {
+const Header = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -17,16 +17,16 @@ const Nabar = () => {
       }}
     >
       <Container>
-        <Navbar.Brand>
+        <Navbar.Brand className="fs-4">
           <i class="bi bi-kanban-fill"></i> TaskBoard
         </Navbar.Brand>
         <Button
           variant="light"
           onClick={handleShow}
-          size="sm"
+          size="md"
           className="text-dark"
         >
-          <i class="bi bi-plus-square-fill fs-5"></i> Create
+          <i class="bi bi-plus-circle-fill me-2"></i> Create
         </Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -41,4 +41,4 @@ const Nabar = () => {
   );
 };
 
-export default Nabar;
+export default Header;

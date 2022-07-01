@@ -27,7 +27,7 @@ const Subt = ({ taskObj }) => {
                     onClick={() => {
                       let newSub = taskObj.subt.filter((sub, id) => id !== idx);
                       newSub.push({ ...st, isDone: !st.isDone });
-                      dispatch(edit({ ...taskObj, subt: newSub }));
+                      dispatch(edit({task:{ ...taskObj, subt: newSub }}));
                     }}
                   />
                   <p className=" text-center m-auto">{st.title}</p>
@@ -42,13 +42,13 @@ const Subt = ({ taskObj }) => {
           e.preventDefault();
           if (e.target[0].value !== "") {
             dispatch(
-              edit({
+              edit({task:{
                 ...taskObj,
                 subt: [
                   ...taskObj.subt,
                   { title: e.target[0].value, isDone: false },
                 ],
-              })
+              }})
             );
             e.target[0].value = "";
           }
